@@ -11,7 +11,7 @@ RUN apt-get update \
         libaio1 libaio-dev wget \
     && apt-get clean autoclean \
     && apt-get autoremove --yes \
-    &&  rm -rf /var/lib/{apt,dpkg,cache,log}/ 
+    && rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 # SOAP 
 RUN apt-get install -y libxml2-dev && docker-php-ext-install soap
@@ -50,12 +50,8 @@ RUN curl -fsSL 'https://xdebug.org/files/xdebug-3.0.3.tgz' -o xdebug.tar.gz \
 EXPOSE 9000  
 RUN pecl install xdebug 
 
-
-
 RUN echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.remote_host = host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-
-
 
 RUN docker-php-ext-install mysqli \
     && docker-php-source delete 
@@ -65,7 +61,6 @@ RUN docker-php-ext-install pdo
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install gd
-
 
 #
 # install OpCache and add config
@@ -83,8 +78,6 @@ COPY ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 COPY ./php.ini /usr/local/etc/php/php.ini
 
-
-
 # Apache
 RUN rm /etc/apache2/sites-available/000-default.conf
 COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
@@ -92,3 +85,16 @@ COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
 # Symfony binary
 RUN wget https://get.symfony.com/cli/installer -O - | bash \
     && mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+
+# node
+ARG NODE_VERSION=14.16.0
+ARG NODE_PACKAGE=node-v$NODE_VERSION-linux-x64
+ARG NODE_HOME=/opt/$NODE_PACKAGE
+ENV NODE_PATH $NODE_HOME/lib/node_modules
+ENV PATH $NODE_HOME/bin:$PATH
+RUN curl https://nodejs.org/dist/v$NODE_VERSION/$NODE_PACKAGE.tar.gz | tar -xzC /opt/ \
+   && ln -s /opt/node-v14.16.0-linux-x64/bin/node /usr/local/bin/nodejs
+
+# yarn
+RUN npm install -g yarn
+
