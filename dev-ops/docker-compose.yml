@@ -1,0 +1,31 @@
+version: "3.9"
+
+networks: 
+  hc_prob:
+
+services:
+  app:
+    container_name: hongyi_apache-php7.4
+    restart: "no"
+    build: 
+      context: ./containers
+      dockerfile: Dockerfile
+    networks: 
+      hc_prob:
+        aliases:
+          - hcprob.vm
+    extra_hosts: 
+      - "hcprob.vm:127.0.0.1"
+    volumes:
+      - ../application:/var/www/html
+      - ~/.composer:/.composer
+    tmpfs:
+      - /tmp:mode=1777
+    ports:
+      - "127.0.0.1:80:80"  
+
+
+
+
+
+
