@@ -1,0 +1,10 @@
+home:
+  path: /
+  controller: App\Controller\PortalController::index
+
+imprint:
+  path:
+    en: /en/imprint
+    de: /de/impressum
+  controller: App\Controller\ImprintController::index
+
