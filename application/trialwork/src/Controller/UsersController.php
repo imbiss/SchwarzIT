@@ -3,15 +3,13 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController,
     Symfony\Component\HttpFoundation\Response,
-    Symfony\Component\HttpFoundation\Request;
+    App\ApiClient;
 
 class UsersController extends AbstractController
 {
-
-
-    public function index(): Response
+    public function index(ApiClient $client): Response
     {
-        $users = [];
+        $users = $client->getUsers();
         return $this->render("users/index.html.twig", [
             'users' => $users,
         ]);

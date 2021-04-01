@@ -1,60 +1,114 @@
 <?php
-namespace App\Entity;
-use Doctrine\ORM\Mapping as ORM,
-    Symfony\Component\Serializer\Annotation\SerializedName,
-    Address,
-    Company;
+namespace App\ValueObject;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
-/**
- * @ORM\Entity()
- */
 class User
 {
     /**
      * @SerializedName("id")
-     * @var int
      */
     private int $id;
 
     /**
      * @SerializedName("name")
-     * @var string
      */
     private string $name;
 
     /**
      * @SerializedName("username")
-     * @var string
      */
     private string $username;
 
     /**
      * @SerializedName("email")
-     * @var string
      */
     private string $email;
 
+
     /**
      * @SerializedName("address")
-     * @var Address
      */
     private Address $address;
 
     /**
      * @SerializedName("phone")
-     * @var string
      */
     private string $phone;
 
+
     /**
      * @SerializedName("website")
-     * @var string
      */
     private string $website;
 
     /**
      * @SerializedName("company")
-     * @var Company
      */
     private Company $company;
+
+    public function __construct(
+        int $id,
+        string $name,
+        string $username,
+        string $email,
+        Address $address,
+        string $phone,
+        string $website,
+        Company $company)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->username = $username;
+        $this->email = $email;
+        $this->address = $address;
+        $this->phone = $phone;
+        $this->website = $website;
+        $this->company = $company;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+
+    public function getAddress(): Address
+    {
+        return $this->address;
+    }
+
+
+    public function getCompany(): Company
+    {
+        return $this->company;
+    }
+
+
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
+    public function getWebsite(): string
+    {
+        return $this->website;
+    }
 }

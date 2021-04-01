@@ -1,42 +1,83 @@
 <?php
-namespace App\Entity;
+namespace App\ValueObject;
 
-use Doctrine\ORM\Mapping as ORM;
-use Geo;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
-/**
- * @ORM\Embeddable()
- */
+
 class Address
 {
     /**
      * @SerializedName("street")
-     * @var string
      */
     private string $street;
 
     /**
      * @SerializedName("suite")
-     * @var string
      */
     private string $suite;
 
     /**
      * @SerializedName("city")
-     * @var string
      */
     private string $city;
 
     /**
      * @SerializedName("zipcode")
-     * @var string
      */
     private string $zipcode;
 
     /**
      * @SerializedName("geo")
-     * @var Geo
      */
     private Geo $geo;
 
+
+    public function __construct(string $street, string $suite, string $city, string $zipcode, Geo $geo)
+    {
+        $this->street = $street;
+        $this->suite = $suite;
+        $this->city = $city;
+        $this->zipcode = $zipcode;
+        $this->geo = $geo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStreet(): string
+    {
+        return $this->street;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSuite(): string
+    {
+        return $this->suite;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCity(): string
+    {
+        return $this->city;
+    }
+
+    /**
+     * @return string
+     */
+    public function getZipCode(): string
+    {
+        return $this->zipcode;
+    }
+
+    /**
+     * @return Geo
+     */
+    public function getGeo(): Geo
+    {
+        return $this->geo;
+    }
 }

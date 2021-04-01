@@ -44,8 +44,7 @@ RUN curl -fsSL 'https://xdebug.org/files/xdebug-3.0.3.tgz' -o xdebug.tar.gz \
     && make test \	
     ) \
     && rm -r xdebug \
-    && docker-php-ext-enable xdebug \
-    && echo "xdebug.remote_enable=1" >> /usr/local/etc/php/php.ini
+    && docker-php-ext-enable xdebug
 
 EXPOSE 9000  
 RUN pecl install xdebug 
