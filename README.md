@@ -10,6 +10,7 @@ Requirements
 
 Install
 ------------
+To create docker container at the first time just run this command under directory dev-ops
 
 ```bash
 $ docker-compose up --build
@@ -28,4 +29,20 @@ Start docker with:
 ```bash
 $ docker-compose up
 ```
-To access the application in your browser at the given URL <http://localhost>. 
+
+Task 1
+------
+To access the application in your browser at the given URL <http://localhost>.
+
+
+Task 2
+------
+To access the API under <http://localhost/api/>
+
+Task 3
+-------
+To access the user page under <http://localhost/users>
+
+Task 4
+-------
+To run the unit test 

@@ -1,10 +1,20 @@
 home:
-  path: /
+  path: /{_locale}
   controller: App\Controller\PortalController::index
+  defaults:
+    _locale: en
+  requirements:
+    _locale: en|de
 
 imprint:
   path:
     en: /en/imprint
     de: /de/impressum
   controller: App\Controller\ImprintController::index
+
+api_imprint:
+  path: /api/imprint
+  methods: GET
+  defaults:
+   _controller: App\Controller\ApiController::imprint
 

@@ -1,4 +1,14 @@
+<header>
+    <ul>
+        <li><a href="/de">DE</a></li>
+        <li><a href="/en">EN</a></li>
+    </ul>
+</header>
+
 <h1>{{ t('welcome')|trans }}</h1>
 
+<p>Current Locale: {{ currentLocale }}</p>
 
-<a href="{{ path('imprint') }}">{{ t('imprint')|trans }}</a>
+<footer>
+    <a href="{{ path('imprint') }}">{{ t('imprint')|trans }}</a>
+</footer>

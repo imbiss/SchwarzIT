@@ -10,11 +10,10 @@ class PortalController extends AbstractController
 {
 
 
-    public function index(TranslatorInterface $translator, Request $request): Response
+    public function index(Request $request): Response
     {
-
         return $this->render("portal/index.html.twig", [
-
+            'currentLocale' => $request->getLocale(),
         ]);
     }
 
