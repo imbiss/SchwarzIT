@@ -50,8 +50,8 @@ RUN curl -fsSL 'https://xdebug.org/files/xdebug-3.0.3.tgz' -o xdebug.tar.gz \
 EXPOSE 9000  
 RUN pecl install xdebug 
 
-RUN echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.remote_host = host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 RUN docker-php-ext-install mysqli \
     && docker-php-source delete 
