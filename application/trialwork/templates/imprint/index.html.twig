@@ -1,4 +1,11 @@
-
-    <h1>{{ t(imprint)|trans }}</h1>
-    {{ content | raw }}
-
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1>{{ t(imprint)|trans }}</h1>
+        </div>
+        <div class="panel-body">
+            {{ content | raw }}
+        </div>
+    </div>
+{% endblock %}

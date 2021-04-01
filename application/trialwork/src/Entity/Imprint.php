@@ -17,6 +17,5 @@ class Imprint
                 return self::$content_en;
 
         }
-
     }
 }

@@ -37,7 +37,12 @@ To access the application in your browser at the given URL <http://localhost>.
 
 Task 2
 ------
-To access the API under <http://localhost/api/>
+To access the API under <http://localhost/api/imprint>
+
+```bash
+  GET http://localhost/api/imprint
+```
+
 
 Task 3
 -------
