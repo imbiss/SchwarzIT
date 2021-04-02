@@ -25,19 +25,6 @@ class ApiClient
     public function __construct(HttpClientInterface $client)
     {
         $this->client = $client;
-
-        $loader = new AnnotationLoader(new AnnotationReader());
-        $classMetadataFactory = new ClassMetadataFactory($loader);
-        $metadataAwareNameConverter = new MetadataAwareNameConverter($classMetadataFactory);
-
-        $encoders = ['json' => new JsonEncoder()];
-
-        $normalizers = [
-            new ObjectNormalizer($classMetadataFactory, $metadataAwareNameConverter),
-            new ArrayDenormalizer()
-        ];
-
-        $this->serializer = new Serializer($normalizers, $encoders);
     }
 
     /**
@@ -45,9 +32,41 @@ class ApiClient
      */
     public function getUsers(): array
     {
-        $response = $this->client->request('GET',self::RESOURCE_USR_URL);
-        $jsonString = $response->getContent();
-        $users = $this->serializer->deserialize($jsonString, 'App\ValueObject\User[]', 'json');
-        return $users;
+        return $this->getSerializer()
+            ->deserialize(
+                $this->client->request('GET',self::RESOURCE_USR_URL)->getContent(),
+                'App\ValueObject\User[]',
+                'json'
+            );
+    }
+
+    /**
+     * @return Serializer|null
+     */
+    private function getSerializer(): ?Serializer
+    {
+        if (null == $this->serializer) {
+            $this->initSerializer();
+        }
+        return $this->serializer;
+    }
+
+    /**
+     * @return $this
+     */
+    private function initSerializer(): self
+    {
+        $loader = new AnnotationLoader(new AnnotationReader());
+        $classMetadataFactory = new ClassMetadataFactory($loader);
+        $metadataAwareNameConverter = new MetadataAwareNameConverter($classMetadataFactory);
+
+        $encoders = ['json' => new JsonEncoder()];
+        $normalizers = [
+            new ObjectNormalizer($classMetadataFactory, $metadataAwareNameConverter),
+            new ArrayDenormalizer()
+        ];
+
+        $this->serializer = new Serializer($normalizers, $encoders);
+        return $this;
     }
 }

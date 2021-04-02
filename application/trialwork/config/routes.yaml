@@ -12,11 +12,6 @@ imprint:
     de: /de/impressum
   controller: App\Controller\ImprintController::index
 
-api_imprint:
-  path: /api/imprint
-  methods: GET
-  defaults:
-   _controller: App\Controller\ApiController::imprint
 
 users:
    path: /users

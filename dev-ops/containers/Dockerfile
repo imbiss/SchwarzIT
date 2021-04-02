@@ -1,7 +1,7 @@
 FROM php:7.4-apache
 
 LABEL author="Hongyi Chen"
-LABEL email="imbisschn@gmail.com"
+LABEL email="job@chen-hongyi.com"
 
 RUN apt-get update \ 
     && apt-get install -y apt-utils \
@@ -56,7 +56,7 @@ RUN docker-php-ext-install mysqli \
     && docker-php-source delete 
 
 # Install PHP mysql extension
-RUN docker-php-ext-install pdo 
+RUN docker-php-ext-install pdo
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install gd
@@ -71,10 +71,8 @@ ENV PHP_OPCACHE_VALIDATE_TIMESTAMPS="0" \
 RUN docker-php-ext-install opcache
 COPY ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
-#
-# cp php.ini
-#
 
+# cp php.ini
 COPY ./php.ini /usr/local/etc/php/php.ini
 
 # Apache

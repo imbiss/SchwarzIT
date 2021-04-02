@@ -1,21 +1,47 @@
 <?php
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource,
+    ApiPlatform\Core\Annotation\ApiProperty;
+
+
+/**
+ * @ApiResource(
+ *     collectionOperations={},
+ *     itemOperations={"get"},
+ *     paginationEnabled=false
+ * )
+ */
 class Imprint
 {
-    static private string $content_de = 'Impressum Text auf Deutsche';
-    static private string $content_en = 'Imprint Text in english';
+    /**
+     * @ApiProperty(identifier=true)
+     */
+    private string $locale;
 
+    #[Groups(['imprint:item'])]
+    private string $content;
 
-    public static function getContent(string $lang='en'): string
+    public function __construct(string $locale, string $content)
     {
-        switch($lang) {
-            case 'de':
-                return self::$content_de;
+        $this->locale = $locale;
+        $this->content = $content;
+    }
 
-            default:
-                return self::$content_en;
+    public function getContent(): string
+    {
+        return $this->content;
+    }
 
-        }
+    public function setLocale(string $locale): self
+    {
+        $this->locale = $locale;
+        return $this;
+    }
+
+
+    public function getLocale(): string
+    {
+        return $this->locale;
     }
 }

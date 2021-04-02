@@ -9,7 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController,
 class PortalController extends AbstractController
 {
 
-
     public function index(Request $request): Response
     {
         return $this->render("portal/index.html.twig", [
