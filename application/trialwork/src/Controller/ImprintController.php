@@ -13,7 +13,7 @@ class ImprintController extends AbstractController
     public function index(TranslatorInterface $translator, Request $request, ImprintInterface $imprintRepo): Response
     {
         return $this->render("imprint/index.html.twig", [
-            'pageTitel' => $translator->trans('imprint'),
+            'pageTitel' => $translator->trans('imprintPageTitel'),
             'imprintEntity' => $imprintRepo->find($request->getLocale())
         ]);
     }

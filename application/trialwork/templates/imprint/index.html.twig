@@ -2,7 +2,7 @@
 {% block body %}
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h1>{{ t(pageTitel)|trans }} ({{ imprintEntity.locale }})</h1>
+            <h1>{{ t(pageTitel) }} ({{ imprintEntity.locale }})</h1>
         </div>
         <div class="panel-body">
             {{ imprintEntity.content | raw }}

@@ -6,6 +6,7 @@ use App\ValueObject\User,
     Symfony\Component\Serializer\Normalizer\ArrayDenormalizer,
     Symfony\Component\Serializer\Normalizer\ObjectNormalizer,
     Symfony\Component\Serializer\Serializer,
+    Symfony\Component\Serializer\SerializerInterface,
     Symfony\Contracts\HttpClient\HttpClientInterface,
     Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory,
     Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader,
@@ -13,12 +14,15 @@ use App\ValueObject\User,
 
 class ApiClient
 {
-    private $client = null;
+    /**
+     * @var HttpClientInterface
+     */
+    private ?HttpClientInterface $client = null;
 
     /**
-     * @var Serializer|null
+     * @var SerializerInterface|null
      */
-    private ?Serializer $serializer = null;
+    private ?SerializerInterface $serializer = null;
 
     const RESOURCE_USR_URL = "https://jsonplaceholder.typicode.com/users";
 
@@ -28,7 +32,7 @@ class ApiClient
     }
 
     /**
-     * Make http call and return array of users object.
+     * Make http rest api call and return array of users objects.
      *
      * @return User[]
      */
@@ -46,7 +50,7 @@ class ApiClient
     /**
      * @return Serializer
      */
-    private function getSerializer(): Serializer
+    private function getSerializer(): SerializerInterface
     {
         if (null == $this->serializer) {
             $this->initSerializer();

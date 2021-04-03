@@ -60,7 +60,9 @@ RUN docker-php-ext-install pdo
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install gd
-
+RUN docker-php-ext-configure intl \
+    && docker-php-ext-install intl \
+    && docker-php-ext-enable intl
 #
 # install OpCache and add config
 #
