@@ -6,15 +6,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController,
     Symfony\Contracts\Translation\TranslatorInterface,
     Symfony\Component\HttpFoundation\Request,
     App\Entity\Imprint,
-    App\Repository\ImprintInterface;
+    App\Repository\ImprintInterface,
+    Symfony\Contracts\Cache\CacheInterface;
 
 class ImprintController extends AbstractController
 {
-    public function index(TranslatorInterface $translator, Request $request, ImprintInterface $imprintRepo): Response
+    public function index(TranslatorInterface $translator, Request $request, ImprintInterface $imprintRepo, CacheInterface $cache): Response
     {
         return $this->render("imprint/index.html.twig", [
             'pageTitel' => $translator->trans('imprintPageTitel'),
-            'imprintEntity' => $imprintRepo->find($request->getLocale())
+            'imprintEntity' => $cache->get( 'CSV_Imprint_' . md5($request->getLocale()), function () use ($imprintRepo, $request) {
+                return $imprintRepo->find($request->getLocale());
+            })
         ]);
     }
 }
