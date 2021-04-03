@@ -3,16 +3,28 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController,
     Symfony\Component\HttpFoundation\Response,
-    App\ApiClient;
+    App\ApiClient,
+    Psr\Log\LoggerInterface;
 
 class UsersController extends AbstractController
 {
-    public function index(ApiClient $client): Response
+    public function index(ApiClient $client, LoggerInterface $logger): Response
     {
-        $users = $client->getUsers();
-        return $this->render("users/index.html.twig", [
-            'users' => $users,
+        try {
+            $users = $client->getUsers();
+        } catch (\Exception $e) {
+            $logger->error($e->getMessage());
+            $users = [];
+        }
+        $response = $this->render("users/index.html.twig", [
+            'users' => $users
         ]);
+
+        if (empty($users)) {
+            $response->setStatusCode(404);
+        }
+
+        return $response;
     }
 
 }

@@ -15,7 +15,7 @@ Install
 $ git clone https://github.com/imbiss/SchwarzIT.git
 ```
 
-* Building an image
+* Building an image and run the container
 
 Under directory dev-ops
 
@@ -32,7 +32,7 @@ It will create and run a container with name hongyi_apache-php7.4. The image con
 
 Usage
 -----
-* To start container type:
+* To start container:
 ```bash
 $ docker-compose up
 ```
@@ -53,9 +53,14 @@ Task 2
 ------
 To access the REST API document interface (base on API Platform) under <http://localhost/api>
 
-To direct query with GET /api/imprint/{locale}. Example to get imprint in english :
+To get imprint in english as JSON:
 ```bash
-  GET http://localhost/api/en
+  GET http://localhost/api/imprints/en.json
+```
+
+To get imprint in german as JSON:
+```bash
+  GET http://localhost/api/imprints/de.json
 ```
 
 

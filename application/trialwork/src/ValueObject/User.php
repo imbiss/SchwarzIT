@@ -24,7 +24,6 @@ class User
      */
     private string $email;
 
-
     /**
      * @SerializedName("address")
      */
@@ -34,7 +33,6 @@ class User
      * @SerializedName("phone")
      */
     private string $phone;
-
 
     /**
      * @SerializedName("website")
@@ -71,36 +69,30 @@ class User
         return $this->id;
     }
 
-
     public function getName(): string
     {
         return $this->name;
     }
-
 
     public function getUsername(): string
     {
         return $this->username;
     }
 
-
     public function getEmail(): string
     {
         return $this->email;
     }
-
 
     public function getAddress(): Address
     {
         return $this->address;
     }
 
-
     public function getCompany(): Company
     {
         return $this->company;
     }
-
 
     public function getPhone(): string
     {

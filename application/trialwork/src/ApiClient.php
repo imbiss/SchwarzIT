@@ -28,22 +28,25 @@ class ApiClient
     }
 
     /**
+     * Make http call and return array of users object.
+     *
      * @return User[]
      */
     public function getUsers(): array
     {
-        return $this->getSerializer()
-            ->deserialize(
-                $this->client->request('GET',self::RESOURCE_USR_URL)->getContent(),
-                'App\ValueObject\User[]',
-                'json'
-            );
+        return $this
+                ->getSerializer()
+                ->deserialize(
+                    $this->client->request('GET',self::RESOURCE_USR_URL)->getContent(),
+                    'App\ValueObject\User[]',
+                    'json'
+                );
     }
 
     /**
-     * @return Serializer|null
+     * @return Serializer
      */
-    private function getSerializer(): ?Serializer
+    private function getSerializer(): Serializer
     {
         if (null == $this->serializer) {
             $this->initSerializer();
@@ -51,21 +54,17 @@ class ApiClient
         return $this->serializer;
     }
 
-    /**
-     * @return $this
-     */
+
     private function initSerializer(): self
     {
         $loader = new AnnotationLoader(new AnnotationReader());
         $classMetadataFactory = new ClassMetadataFactory($loader);
         $metadataAwareNameConverter = new MetadataAwareNameConverter($classMetadataFactory);
-
         $encoders = ['json' => new JsonEncoder()];
         $normalizers = [
             new ObjectNormalizer($classMetadataFactory, $metadataAwareNameConverter),
             new ArrayDenormalizer()
         ];
-
         $this->serializer = new Serializer($normalizers, $encoders);
         return $this;
     }

@@ -1,8 +1,6 @@
 <?php
 namespace App\ValueObject;
-
 use Symfony\Component\Serializer\Annotation\SerializedName;
-
 
 class Address
 {

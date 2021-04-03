@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <h>Users</h>
-
+    {% if users is not empty %}
     <table class="table table-responsive table-striped">
         <thead>
             <tr>
@@ -43,4 +42,7 @@
         {% endfor %}
         </tbody>
     </table>
+    {% else  %}
+        <p>User not found</p>
+    {% endif  %}
 {% endblock %}
