@@ -39,7 +39,6 @@ class Imprint
         return $this;
     }
 
-
     public function getLocale(): string
     {
         return $this->locale;
