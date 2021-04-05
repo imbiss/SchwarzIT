@@ -1,9 +1,12 @@
 framework:
     cache:
         # Unique name of your app: used to compute stable namespaces for cache keys.
-        #prefix_seed: your_vendor_name/app_name
+        prefix_seed: hchen/trail_work
 
         # The "app" cache stores to the filesystem by default.
+        app: cache.adapter.filesystem
+        system: cache.adapter.system
+
         # The data in this cache should persist between deploys.
         # Other options include:
 
@@ -17,3 +20,4 @@ framework:
         # Namespaced pools use the above "app" backend by default
         #pools:
             #my.dedicated.cache: null
+
