@@ -61,7 +61,7 @@ class UserTest extends TestCase
         $this->assertEquals($user->getAddress()->getCity(), $json->address->city);
         $this->assertEquals($user->getAddress()->getStreet(), $json->address->street);
         $this->assertEquals($user->getAddress()->getSuite(), $json->address->suite);
-        $this->assertEquals($user->getAddress()->getZipCode(), $json->address->zipCode);
+        $this->assertEquals($user->getAddress()->getZipcode(), $json->address->zipcode);
         // check address geo
         $this->assertEquals($user->getAddress()->getGeo()->getLat(), $json->address->geo->lat);
         $this->assertEquals($user->getAddress()->getGeo()->getLng(), $json->address->geo->lng);

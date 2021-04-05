@@ -66,7 +66,7 @@ class Address
     /**
      * @return string
      */
-    public function getZipCode(): string
+    public function getZipcode(): string
     {
         return $this->zipcode;
     }

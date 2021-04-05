@@ -13,7 +13,6 @@ class UsersController extends AbstractController
         $users = [];
         try {
             $users = $client->getUsers();
-            //dump($users);
         } catch (\Exception $e) {
             $logger->error($e->getMessage());
         }
