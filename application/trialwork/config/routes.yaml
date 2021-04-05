@@ -12,6 +12,12 @@ imprint:
     de: /de/impressum
   controller: App\Controller\ImprintController::index
 
+imprintApi:
+  path:
+    en: /en/imprint.json
+    de: /de/imprint.json
+  controller: App\Controller\ImprintController::jsonFormat
+
 
 users:
    path: /users

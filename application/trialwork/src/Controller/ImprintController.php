@@ -7,7 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController,
     Symfony\Component\HttpFoundation\Request,
     App\Entity\Imprint,
     App\Repository\ImprintInterface,
-    Symfony\Contracts\Cache\CacheInterface;
+    Symfony\Contracts\Cache\CacheInterface,
+    Symfony\Component\HttpFoundation\JsonResponse;
 
 class ImprintController extends AbstractController
 {
@@ -20,4 +21,17 @@ class ImprintController extends AbstractController
             })
         ]);
     }
+
+    /**
+     * The simple way to return an json response
+     *
+     * @return JsonResponse
+     */
+    public function jsonFormat(Request $request, ImprintInterface $imprintRepo): JsonResponse
+    {
+        return $this->json($imprintRepo->find($request->getLocale()));
+    }
+
+
+
 }

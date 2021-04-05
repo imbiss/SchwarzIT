@@ -10,7 +10,7 @@ Requirements
 
 Install
 ------------
-* Cloning the repo
+* Cloning the repo from github
 ```bash
 $ git clone https://github.com/imbiss/SchwarzIT.git
 ```
@@ -20,6 +20,7 @@ $ git clone https://github.com/imbiss/SchwarzIT.git
 Under directory dev-ops
 
 ```bash
+$ cd dev-ops
 $ docker-compose up --build
 ```
 It will create and run a container with name hongyi_apache-php7.4. The image contains following components and expose port 80:
@@ -28,10 +29,13 @@ It will create and run a container with name hongyi_apache-php7.4. The image con
     * php7.4
     * nodeJs
     * yarn
-    * symfony 5.2.6 and CLI
+    * symfony CLI
 
-Usage
------
+
+
+Task 1
+------
+
 * To start container:
 ```bash
 $ docker-compose up
@@ -44,14 +48,30 @@ Now you can access project at http://localhost from your host system.
 $ docker-compose down
 ```
 
-Task 1
-------
-To access the application in your browser at the given URL <http://localhost>
+* To change in impressum content:
+
+The imprint page content stores under *{projcect}/data/imprint.csv*
 
 
 Task 2
 ------
-To access the REST API document interface (base on API Platform) under <http://localhost/api>
+There are 2 solutions are implemented. 
+
+ * Simple soulution
+```bash
+ GET http://localhost/en/imprint.json
+```
+
+```bash
+ GET http://localhost/de/imprint.json
+```
+
+
+
+
+ * Full solution (with API Platform)
+
+To access the full REST API document interface under <http://localhost/api>
 
 To get imprint in english as JSON:
 ```bash
@@ -66,13 +86,22 @@ To get imprint in german as JSON:
 
 Task 3
 -------
+The value-object are stored unde *{project}/src/ValueObject*.
+
+There 4 objects are created:
+- User
+- Address
+- Geo
+- Company
+
+
 To access the user page under <http://localhost/users>
 
 Task 4
 -------
 To run the unit test :
 
-Enter the container:
+Enter the container from your host:
 
 ```bash
  $ docker exec -it hongyi_apache-php7.4 bash
@@ -82,10 +111,6 @@ Switch to project directory
 
 ```bash
  # cd trialwork
-```
-
-Run PhpUnit
-```bash
  # ./bin/phpunit
 ```
 

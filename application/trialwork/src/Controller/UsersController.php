@@ -1,34 +1,25 @@
 <?php
 namespace App\Controller;
 
+use App\Service\UserApiClientInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController,
     Symfony\Component\HttpFoundation\Response,
-    App\ApiClient,
-    Psr\Log\LoggerInterface,
-    Symfony\Contracts\Cache\CacheInterface;
+    Psr\Log\LoggerInterface;
 
 class UsersController extends AbstractController
 {
-    public function index(ApiClient $client, LoggerInterface $logger, CacheInterface $cache): Response
+    public function index(UserApiClientInterface $client, LoggerInterface $logger): Response
     {
+        $users = [];
         try {
-            $users = $cache->get('API_Call_UserAPI_' . md5('UserAPI'), function () use ($client) {
-                return $client->getUsers();
-            } );
-
+            $users = $client->getUsers();
+            //dump($users);
         } catch (\Exception $e) {
             $logger->error($e->getMessage());
-            $users = [];
         }
-        $response = $this->render("users/index.html.twig", [
+        return $this->render("users/index.html.twig", [
             'users' => $users
         ]);
-
-        if (empty($users)) {
-            $response->setStatusCode(404);
-        }
-
-        return $response;
     }
 
 }
