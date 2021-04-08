@@ -32,7 +32,7 @@ class AdminController extends AbstractController
             $entityManager->persist($pe);
             $entityManager->flush();
             // add flash bag
-            $this->get('session')->getFlashBag()->add('notice','New localed added!');
+            $this->get('session')->getFlashBag()->add('notice','New locale added!');
         }
         $all = $this->getDoctrine()->getRepository(Portal::class)->findAll();
         return $this->render("admin/portal.html.twig", [

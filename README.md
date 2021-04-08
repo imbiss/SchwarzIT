@@ -37,6 +37,24 @@ hongyi_mysql5.7 include:
 
     * MySQL 5.7
  
+MySQL root password: password
+
+MySQL User: user, 
+
+Password: user, 
+
+DB Name: user-db
+
+To init the database tables, run commands:
+
+```bash
+$ docker exec -it hongyi_apache-php7.4 
+# cd trialwork/
+# php bin/console doctrine:migrations:migrate
+```
+
+
+
 Task 1
 ------
 
