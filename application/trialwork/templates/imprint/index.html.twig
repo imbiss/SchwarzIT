@@ -1,11 +1,26 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h1>{{ t(pageTitel) }} ({{ imprintEntity.locale }})</h1>
-        </div>
-        <div class="panel-body">
-            {{ imprintEntity.content | raw }}
+    <header>
+        <ul class="nav">
+            {% for portal in portals %}
+                <li class="nav-item">
+                    <a href="{{ path('home', { _locale: portal.locale } ) }}"
+                       class="nav-link {% if portal.locale == currentLocale  %}active{% endif %}"
+                       style="text-transform:uppercase;" >
+                        {{ portal.locale }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </header>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1>{{ t(pageTitel) }} ({{ portalEntity.locale }})</h1>
+            </div>
+            <div class="panel-body">
+                {{ portalEntity.imprint | raw }}
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -4,18 +4,34 @@ home:
   defaults:
     _locale: en
   requirements:
-    _locale: en|de
+    _locale: "^[a-zA-Z]{2}$"
 
-imprint:
-  path:
-    en: /en/imprint
-    de: /de/impressum
+imprint_standard:
+  path: /{_locale}/imprint
   controller: App\Controller\ImprintController::index
 
+admin:
+  path: /admin
+  controller: App\Controller\AdminController::index
+
+admin_imprint:
+  path: /admin/imprint
+  controller: App\Controller\AdminController::imprint
+
+admin_portal:
+  path: /admin/portal
+  controller: App\Controller\AdminController::portal
+
+admin_portal_edit:
+  path: /admin/portal/edit/{locale}
+  controller: App\Controller\AdminController::edit
+
+admin_portal_del:
+  path: /admin/portal/delete/{locale}
+  controller: App\Controller\AdminController::delete
+
 imprintApi:
-  path:
-    en: /en/imprint.json
-    de: /de/imprint.json
+  path: /{_locale}/imprint.json
   controller: App\Controller\ImprintController::jsonFormat
 
 

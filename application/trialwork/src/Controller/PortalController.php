@@ -1,10 +1,11 @@
 <?php
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController,
-    Symfony\Component\HttpFoundation\Response,
-    Symfony\Contracts\Translation\TranslatorInterface,
-    Symfony\Component\HttpFoundation\Request;
+use App\Entity\Portal;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class PortalController extends AbstractController
 {
@@ -13,6 +14,7 @@ class PortalController extends AbstractController
     {
         return $this->render("portal/index.html.twig", [
             'currentLocale' => $request->getLocale(),
+            'portals' => $this->getDoctrine()->getRepository(Portal::class)->findAll()
         ]);
     }
 

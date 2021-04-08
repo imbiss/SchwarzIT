@@ -31,7 +31,6 @@ services:
     # please note that last definitions always *replace* previous ones
 
     # custom data provider
-    App\Repository\ImprintInterface:
-        '@App\Repository\ImprintRepository'
-
-
+    App\Service\UserApiClient:
+        arguments:
+            $url: 'https://jsonplaceholder.typicode.com/users'
