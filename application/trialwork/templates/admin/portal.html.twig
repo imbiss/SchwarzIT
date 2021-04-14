@@ -1,14 +1,9 @@
 {% extends 'base.html.twig' %}
-
-
-
 {% block body %}
-
     <div class="col-6">
         <h1>Portal</h1>
         {{ form(form) }}
     </div>
-
 
     {% if portals is not empty %}
     <h2></h2>
@@ -41,5 +36,4 @@
         </table>
     </div>
     {% endif %}
-
 {% endblock  %}

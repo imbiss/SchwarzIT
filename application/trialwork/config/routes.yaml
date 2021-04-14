@@ -14,10 +14,6 @@ admin:
   path: /admin
   controller: App\Controller\AdminController::index
 
-admin_imprint:
-  path: /admin/imprint
-  controller: App\Controller\AdminController::imprint
-
 admin_portal:
   path: /admin/portal
   controller: App\Controller\AdminController::portal
