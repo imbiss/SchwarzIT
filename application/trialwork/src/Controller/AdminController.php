@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
+use App\Controller\Base\BaseController;
 use App\Form\Type\PortalType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Portal;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 
 
-class AdminController extends AbstractController
+class AdminController extends BaseController
 {
 
 
@@ -90,5 +90,8 @@ class AdminController extends AbstractController
         $options = [];
         return $this->createForm(PortalType::class, $pe, $options);
     }
+
+
+
 
 }

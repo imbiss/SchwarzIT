@@ -1,0 +1,3 @@
+forms:
+  portal:
+    locale: Only {{ limit }} Char are allowed (en)

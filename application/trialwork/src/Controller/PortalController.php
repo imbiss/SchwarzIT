@@ -4,7 +4,6 @@ namespace App\Controller;
 use App\Entity\Portal;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class PortalController extends AbstractController

@@ -1,6 +1,6 @@
-welcome: Willkommen zum Portal!
+welcome: Bienvenue sur le portail !
 imprintPageTitel: Impressum
 imprintFooterLabel: Impressum
 forms:
   portal:
-    buttonCreate: Einfügen
+    buttonCreate: Insertion

@@ -1,18 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
- <header>
-    <ul class="nav">
-        {% for portal in portals %}
-        <li class="nav-item">
-            <a href="{{ path('home', { _locale: portal.locale } ) }}"
-               class="nav-link {% if portal.locale == currentLocale  %}active{% endif %}"
-               style="text-transform:uppercase;" >
-                {{ portal.locale }}
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
-</header>
+    {{ render( controller('App\\Controller\\Base\\BaseController::pageHeader', {}))}}
+
     <div class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -24,14 +13,6 @@
         Link: <a href="{{ path('admin') }}">Admin</a>
     </div>
 
+    {{ render( controller('App\\Controller\\Base\\BaseController::pageFooter', {}))}}
 
-<footer class="bg-light text-center text-lg-start">
-    <div class="container p-4">
-        <div class="row">
-            <a href="{{ path('imprint_standard', { _locale:  currentLocale }) }}">
-                {{ t('imprintFooterLabel')|trans }}
-            </a>
-        </div>
-    </div>
-</footer>
  {% endblock %}

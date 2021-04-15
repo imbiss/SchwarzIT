@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    {{ render( controller('App\\Controller\\Base\\BaseController::pageHeader', {}))}}
     <div class="col-6">
         <h1>Admin</h1>
 
@@ -7,4 +8,7 @@
             <li><a href="{{ path('admin_portal') }}">Portal</a></li>
         </ul>
     </div>
+
+    {{ render( controller('App\\Controller\\Base\\BaseController::pageFooter', {}))}}
+
 {% endblock  %}

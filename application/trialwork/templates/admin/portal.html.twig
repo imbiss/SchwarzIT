@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+
+    {{ render( controller('App\\Controller\\Base\\BaseController::pageHeader', {}))}}
+
     <div class="col-6">
         <h1>Portal</h1>
         {{ form(form) }}
@@ -36,4 +39,7 @@
         </table>
     </div>
     {% endif %}
+
+    {{ render( controller('App\\Controller\\Base\\BaseController::pageFooter', {}))}}
+
 {% endblock  %}
