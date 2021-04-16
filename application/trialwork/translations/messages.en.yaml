@@ -3,4 +3,4 @@ imprintPageTitel: Imprint
 imprintFooterLabel: Imprint
 forms:
   portal:
-    buttonCreate: Create
+    buttonCreate: Save
