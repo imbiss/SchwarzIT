@@ -1,6 +1,9 @@
 welcome: Welcome to portal!
 imprintPageTitel: Imprint
 imprintFooterLabel: Imprint
+Locale: Locale
+Imprint: Imprint
+Save: Save
 forms:
   portal:
     buttonCreate: Save

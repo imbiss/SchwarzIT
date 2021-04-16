@@ -31,7 +31,6 @@ class PortalType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        dump($options);
         $builder
             ->add('locale', TextType::class, [])
             ->add('imprint',TextareaType::class, [])
