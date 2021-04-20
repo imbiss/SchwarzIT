@@ -3,6 +3,7 @@ namespace App\Controller;
 use App\Controller\Base\BaseController;
 use App\Form\Type\PortalType;
 use App\Entity\Portal;
+use App\Service\PortalService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\Type\ImprintType;
@@ -14,6 +15,12 @@ use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 class AdminController extends BaseController
 {
 
+    private PortalService $portalService;
+
+    public function __construct(PortalService $portalService)
+    {
+        $this->portalService = $portalService;
+    }
 
     public function index(): Response
     {
@@ -26,29 +33,21 @@ class AdminController extends BaseController
         $form = $this->createPortalForm((new Portal()));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityPersist($form->getData());
-            // add flash bag
+            $this->portalService->addPortal($form->getData());
             $this->get('session')->getFlashBag()->add('notice','New locale added!');
         }
-        $all = $this->getDoctrine()->getRepository(Portal::class)->findAll();
         return $this->render("admin/portal.html.twig", [
             'form' => $form->createView(),
-            'portals' => $all
+            'portals' => $this->portalService->getAllPoral()
         ]);
     }
 
     public function edit(Request $request): Response
     {
-        $criteria = [
-            'locale' => $request->get('locale')
-        ];
-        $pe = $this->getDoctrine()->getRepository(Portal::class)->findOneBy($criteria);
-        $form = $this->createPortalForm($pe);
-
+        $form = $this->createPortalForm($this->portalService->findPortalByLocale($request->get('locale')));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityPersist($form->getData());
-            // add flash bag
+            $this->portalService->updatePortal($form->getData());
             $this->get('session')->getFlashBag()->add('notice','update!');
             return $this->redirectToRoute("admin_portal");
         }
@@ -58,24 +57,10 @@ class AdminController extends BaseController
         ]);
     }
 
-    private function entityPersist(Portal $pe)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($pe);
-        $entityManager->flush();
-        return $this;
-    }
 
     public function delete(Request $request): Response
     {
-        $criteria = [
-            'locale' => $request->get('locale')
-        ];
-        $pe = $this->getDoctrine()->getRepository(Portal::class)->findOneBy($criteria);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($pe);
-        $entityManager->flush(); // delete
-        // add flash bag
+        $this->portalService->removePortalByLocale($request->get('locale'));
         $this->get('session')->getFlashBag()->add('notice','deleted');
         return $this->redirectToRoute("admin_portal");
     }
@@ -87,11 +72,8 @@ class AdminController extends BaseController
      */
     private function createPortalForm(Portal $pe)
     {
-        $options = [];
-        return $this->createForm(PortalType::class, $pe, $options);
+        return $this->createForm(PortalType::class, $pe, []);
     }
-
-
 
 
 }
