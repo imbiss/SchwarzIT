@@ -14,9 +14,20 @@ final class PortalService
         $this->portalRepo = $portalRepo;
     }
 
-    public function getAllPoral(): array
+    public function getAllPortal(): array
     {
         return $this->portalRepo->findAllPortals();
+    }
+
+    public function getAllPortalOptions(): array
+    {
+        $options = [];
+        foreach ($this->getAllPortal() as $portal) {
+            $key = $portal->getId();
+            $label = $portal->getLocale();
+            $options[$label] = $key;
+        }
+        return $options;
     }
 
     public function updatePortal(Portal $p): void
@@ -29,7 +40,7 @@ final class PortalService
         $this->portalRepo->save($p);
     }
 
-    public function removePortalByLocale(string $locale)
+    public function removePortalByLocale(string $locale): void
     {
         $this->portalRepo->removeByLocale($locale);
     }

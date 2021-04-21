@@ -26,6 +26,15 @@ admin_portal_del:
   path: /admin/portal/delete/{locale}
   controller: App\Controller\AdminController::delete
 
+admin_page:
+  path: /admin/page
+  controller: App\Controller\PageController::index
+
+admin_page_del:
+  path: /admin/page/delete/{pageid}
+  controller: App\Controller\PageController::delete
+
+
 imprintApi:
   path: /{_locale}/imprint.json
   controller: App\Controller\ImprintController::jsonFormat

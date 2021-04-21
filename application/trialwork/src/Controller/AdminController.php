@@ -34,11 +34,11 @@ class AdminController extends BaseController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->portalService->addPortal($form->getData());
-            $this->get('session')->getFlashBag()->add('notice','New locale added!');
+            $this->addNotice('New locale added!');
         }
         return $this->render("admin/portal.html.twig", [
             'form' => $form->createView(),
-            'portals' => $this->portalService->getAllPoral()
+            'portals' => $this->portalService->getAllPortal()
         ]);
     }
 
@@ -48,7 +48,7 @@ class AdminController extends BaseController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->portalService->updatePortal($form->getData());
-            $this->get('session')->getFlashBag()->add('notice','update!');
+            $this->addNotice('update!');
             return $this->redirectToRoute("admin_portal");
         }
         return $this->render("admin/portal.html.twig", [
@@ -61,7 +61,7 @@ class AdminController extends BaseController
     public function delete(Request $request): Response
     {
         $this->portalService->removePortalByLocale($request->get('locale'));
-        $this->get('session')->getFlashBag()->add('notice','deleted');
+        $this->addNotice('deleted');
         return $this->redirectToRoute("admin_portal");
     }
 
@@ -74,6 +74,7 @@ class AdminController extends BaseController
     {
         return $this->createForm(PortalType::class, $pe, []);
     }
+
 
 
 }

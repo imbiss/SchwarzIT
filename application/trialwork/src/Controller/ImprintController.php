@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Service\PortalService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
@@ -13,6 +14,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ImprintController extends AbstractController
 {
+
+    private PortalService $portalService;
+
+    public function __construct(PortalService $portalService)
+    {
+        $this->portalService = $portalService;
+    }
+
     public function index(TranslatorInterface $translator, Request $request): Response
     {
         $locale = $request->getLocale();
@@ -25,7 +34,7 @@ class ImprintController extends AbstractController
         return $this->render("imprint/index.html.twig", [
             'pageTitel' => $translator->trans('imprintPageTitel'),
             'portalEntity' => $portal,
-            'portals' => $this->getDoctrine()->getRepository(Portal::class)->findAll(),
+            'portals' => $this->portalService->getAllPortal(),
             'currentLocale' => $request->getLocale()
         ]);
     }
@@ -50,10 +59,7 @@ class ImprintController extends AbstractController
 
     private function getPortalByLocal(string $locale): ?Portal
     {
-        $criteria = [
-            'locale' => $locale
-        ];
-        return $this->getDoctrine()->getRepository(Portal::class)->findOneBy($criteria);
+        return $this->portalService->findPortalByLocale($locale);
     }
 
 

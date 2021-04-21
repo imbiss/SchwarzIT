@@ -27,4 +27,9 @@ class BaseController extends AbstractController
         ]);
     }
 
+    protected function addNotice(string $notice): void
+    {
+        $this->get('session')->getFlashBag()->add('notice',$notice);
+    }
+
 }
