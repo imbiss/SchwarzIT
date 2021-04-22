@@ -58,7 +58,6 @@ class PageRepository extends ServiceEntityRepository
 
     public function save(Page $page): void
     {
-        $page->setCreated(new \DateTime());
         $this->entityManager->persist($page);
         $this->entityManager->flush();
     }
@@ -67,5 +66,12 @@ class PageRepository extends ServiceEntityRepository
     {
         $this->entityManager->remove($this->find($id));
         $this->entityManager->flush(); // delete
+    }
+
+    public function getPagesByPortId(int $portalId): array
+    {
+        return $this->findBy([
+                'portalId' => $portalId
+            ]);
     }
 }

@@ -34,6 +34,10 @@ admin_page_del:
   path: /admin/page/delete/{pageid}
   controller: App\Controller\PageController::delete
 
+admin_page_edit:
+  path: /admin/page/edit/{pageid}
+  controller: App\Controller\PageController::edit
+
 
 imprintApi:
   path: /{_locale}/imprint.json

@@ -6,15 +6,16 @@
         {{ form(form) }}
     </div>
 
-    <div class="col-6">
+    <div class="col-12">
         {% if pages is not empty %}
-            <table>
+            <table class="table table-striped">
                 <thead>
                 <tr >
                     <th scope="col">id</th>
-                    <th scope="col">Portal_id</th>
+                    <th scope="col">Portal</th>
                     <th scope="col">Content</th>
                     <th scope="col">Created at </th>
+                    <th scope="col">Updated at </th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -22,12 +23,22 @@
             {% for p in pages %}
                 <tr>
                     <td scope="row">{{ p.id }}</td>
-                    <td scope="row">{{ p.portalId }}</td>
+                    <td scope="row">{{ p.portal.locale }}</td>
                     <td scope="row">{{ p.content }}</td>
-                    <td scope="row">{{ p.created|date('Y-m-d H:i:s') }}</td>
+                    <td scope="row">{{ p.createdAt|date('Y-m-d H:i:s') }}</td>
+                    <td scope="row">
+                        {% if  p.updatedAt is null %}
+                            -
+                        {% else %}
+                            {{ p.updatedAt|date('Y-m-d H:i:s') }}
+                        {% endif %}
+                    </td>
                     <td>
                         <a href="{{ path('admin_page_del', { pageid: p.id }) }}" class="btn btn-primary">
                             Delete
+                        </a>
+                        <a href="{{ path('admin_page_edit', { pageid: p.id }) }}" class="btn btn-primary">
+                            Edit
                         </a>
                     </td>
                 </tr>

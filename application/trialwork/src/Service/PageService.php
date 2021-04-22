@@ -19,6 +19,21 @@ final class PageService
         return $this->pageRepo->findAll();
     }
 
+    public function getPage(int $id): Page
+    {
+        return $this->pageRepo->find($id);
+    }
+
+    public function getPagesByPortId(int $portalId): ?Page
+    {
+        $allPages = $this->pageRepo->getPagesByPortId($portalId);
+        dump($allPages);
+        if (empty($allPages)) {
+            return null;
+        }
+        return $allPages[0];
+    }
+
 
     public function addPage(Page $p): void
     {

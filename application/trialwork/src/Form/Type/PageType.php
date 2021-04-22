@@ -1,7 +1,9 @@
 <?php
 namespace App\Form\Type;
 
+use App\Entity\Page;
 use App\Entity\Portal;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -30,7 +32,9 @@ class PageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('portalId', ChoiceType::class, ['choices' => $options['portal_allowed_options']])
+            ->add('portal', EntityType::class, [
+                'class' => Portal::class
+            ])
             ->add('content',TextareaType::class, [])
             ->add('save', SubmitType::class, [
                 'label' => $this->translator->trans('forms.portal.buttonCreate')
@@ -41,10 +45,8 @@ class PageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'portal_allowed_options' => []
+            'data_class' => Page::class,
         ]);
-        $resolver->setAllowedTypes(
-            'portal_allowed_options', 'array')
-        ;
+
     }
 }

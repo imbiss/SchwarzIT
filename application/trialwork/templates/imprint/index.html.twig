@@ -7,8 +7,11 @@
             <div class="panel-heading">
                 <h1>{{ t(pageTitel) }} ({{ portalEntity.locale }})</h1>
             </div>
-            <div class="panel-body">
-                {{ portalEntity.imprint | raw }}
+
+            <div>
+                {% if pageEntity is not empty %}
+                {{ pageEntity.content | raw }}
+                {% endif %}
             </div>
         </div>
     </div>

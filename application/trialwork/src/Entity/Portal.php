@@ -3,9 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\PortalRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ApiResource(
@@ -30,6 +34,7 @@ class Portal
      * @ApiProperty(identifier=true)
      *
      * @ORM\Column(type="string", length=2, unique=true)
+     * @Assert\NotBlank
      */
     private $locale;
 
@@ -37,6 +42,17 @@ class Portal
      * @ORM\Column(type="text", length=65535, nullable=true)
      */
     private $imprint;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Page::class, mappedBy="portal", orphanRemoval=true)
+     */
+    private $pages;
+
+    public function __construct()
+    {
+        $this->pages = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -65,5 +81,41 @@ class Portal
         $this->imprint = $imprint;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Page[]
+     */
+    public function getPages(): Collection
+    {
+        return $this->pages;
+    }
+
+    public function addPage(Page $page): self
+    {
+        if (!$this->pages->contains($page)) {
+            $this->pages[] = $page;
+            $page->setPortal($this);
+        }
+
+        return $this;
+    }
+
+    public function removePage(Page $page): self
+    {
+        if ($this->pages->removeElement($page)) {
+            // set the owning side to null (unless already changed)
+            if ($page->getPortal() === $this) {
+                $page->setPortal(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    public function __toString()
+    {
+        return $this->locale;
     }
 }

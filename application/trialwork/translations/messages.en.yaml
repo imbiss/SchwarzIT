@@ -1,6 +1,9 @@
 welcome: Welcome to portal!
+homeFooterLabel: Home
 imprintPageTitel: Imprint
 imprintFooterLabel: Imprint
+buttonLabelEdit: edit
+buttonLabelDelete: delete
 Locale: Locale
 Imprint: Imprint
 Save: Save
