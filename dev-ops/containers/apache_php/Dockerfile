@@ -71,15 +71,15 @@ ENV PHP_OPCACHE_VALIDATE_TIMESTAMPS="0" \
     PHP_OPCACHE_MEMORY_CONSUMPTION="192" \
     PHP_OPCACHE_MAX_WASTED_PERCENTAGE="10"
 RUN docker-php-ext-install opcache
-COPY ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+COPY opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 
 # cp php.ini
-COPY ./php.ini /usr/local/etc/php/php.ini
+COPY php.ini /usr/local/etc/php/php.ini
 
 # Apache
 RUN rm /etc/apache2/sites-available/000-default.conf
-COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # Symfony binary
 RUN wget https://get.symfony.com/cli/installer -O - | bash \
@@ -96,4 +96,3 @@ RUN curl https://nodejs.org/dist/v$NODE_VERSION/$NODE_PACKAGE.tar.gz | tar -xzC 
 
 # yarn
 RUN npm install -g yarn
-

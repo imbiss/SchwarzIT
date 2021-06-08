@@ -1,0 +1,11 @@
+App\Entity\Portal:
+  properties:
+    locale:
+      - NotBlank:
+      - Length:
+          max: 2
+          min: 2
+          minMessage: 'forms.portal.locale'
+          maxMessage: 'forms.portal.locale'
+    imprint:
+      - NotBlank:

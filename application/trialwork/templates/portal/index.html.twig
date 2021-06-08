@@ -1,23 +1,18 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<header>
-    <ul class="nav">
-        <li class="nav-item"><a href="/de" class="nav-link ">DE</a></li>
-        <li class="nav-item"><a href="/en" class="nav-link ">EN</a></li>
-    </ul>
-</header>
+    {{ render( controller('App\\Controller\\Base\\BaseController::pageHeader', {}))}}
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h1>{{ t('welcome')|trans }}</h1>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1>{{ t('welcome')|trans }}</h1>
+                <p>{{ currentLocale }}</p>
+            </div>
         </div>
+
+        Link: <a href="{{ path('admin') }}">Admin</a>
     </div>
 
-<footer class="bg-light text-center text-lg-start">
-    <div class="container p-4">
-        <div class="row">
-            <a href="{{ path('imprint') }}">{{ t('imprintFooterLabel')|trans }}</a>
-        </div>
-    </div>
-</footer>
-{% endblock %}
+    {{ render( controller('App\\Controller\\Base\\BaseController::pageFooter', {}))}}
+
+ {% endblock %}

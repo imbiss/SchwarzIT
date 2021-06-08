@@ -23,13 +23,35 @@ Under directory dev-ops
 $ cd dev-ops
 $ docker-compose up --build
 ```
-It will create and run a container with name hongyi_apache-php7.4. The image contains following components and expose port 80:
+It will create and run 2 containers. The 2 images contain following components:
+
+hongyi_apache-php7.4 expose port 80 and include:
 
     * apache
     * php7.4
     * nodeJs
     * yarn
     * symfony CLI
+
+hongyi_mysql5.7 include:
+
+    * MySQL 5.7
+ 
+MySQL root password: password
+
+MySQL User: user, 
+
+Password: user, 
+
+DB Name: user-db
+
+To init the database tables, run commands:
+
+```bash
+$ docker exec -it hongyi_apache-php7.4 
+# cd trialwork/
+# php bin/console doctrine:migrations:migrate
+```
 
 
 
@@ -68,19 +90,18 @@ There are 2 solutions are implemented.
 
 
 
-
  * Full solution (with API Platform)
 
 To access the full REST API document interface under <http://localhost/api>
 
 To get imprint in english as JSON:
 ```bash
-  GET http://localhost/api/imprints/en.json
+  GET http://localhost/api/portals/en.json
 ```
 
 To get imprint in german as JSON:
 ```bash
-  GET http://localhost/api/imprints/de.json
+  GET http://localhost/api/portals/de.json
 ```
 
 

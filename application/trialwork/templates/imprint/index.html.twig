@@ -1,11 +1,21 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h1>{{ t(pageTitel) }} ({{ imprintEntity.locale }})</h1>
-        </div>
-        <div class="panel-body">
-            {{ imprintEntity.content | raw }}
+    {{ render( controller('App\\Controller\\Base\\BaseController::pageHeader', {}))}}
+
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1>{{ t(pageTitel) }} ({{ portalEntity.locale }})</h1>
+            </div>
+
+            <div>
+                {% if pageEntity is not empty %}
+                {{ pageEntity.content | raw }}
+                {% endif %}
+            </div>
         </div>
     </div>
+
+    {{ render( controller('App\\Controller\\Base\\BaseController::pageFooter', {}))}}
+
 {% endblock %}

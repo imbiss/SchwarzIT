@@ -34,7 +34,8 @@ class UserApiClientTest extends TestCase
         $factory = new UserSerializerFactory();
         $response = new MockResponse($jsonResponse);
         $client = new MockHttpClient($response);
-        $this->testObj = new UserApiClient($client, $factory);
+        $url = "http://foo/bar";
+        $this->testObj = new UserApiClient($client, $factory, $url);
         $this->assertTrue(is_object($this->testObj));
 
         $retVal = $this->testObj->getUsers();
@@ -87,5 +88,6 @@ class UserApiClientTest extends TestCase
             [$jsonResponse, $exampleUser, $address, $geo, $company]
         ];
     }
+
 
 }

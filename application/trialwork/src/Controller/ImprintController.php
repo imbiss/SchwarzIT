@@ -1,24 +1,48 @@
 <?php
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController,
-    Symfony\Component\HttpFoundation\Response,
-    Symfony\Contracts\Translation\TranslatorInterface,
-    Symfony\Component\HttpFoundation\Request,
-    App\Entity\Imprint,
-    App\Repository\ImprintInterface,
-    Symfony\Contracts\Cache\CacheInterface,
-    Symfony\Component\HttpFoundation\JsonResponse;
+use App\Service\PageService;
+use App\Service\PortalService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Portal;
+use App\Repository\PortalInterface;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ImprintController extends AbstractController
 {
-    public function index(TranslatorInterface $translator, Request $request, ImprintInterface $imprintRepo, CacheInterface $cache): Response
+
+    private PortalService $portalService;
+
+    private PageService $pageService;
+
+    public function __construct(PortalService $portalService, PageService $pageService)
     {
+        $this->portalService = $portalService;
+        $this->pageService = $pageService;
+    }
+
+    public function index(TranslatorInterface $translator, Request $request): Response
+    {
+        $locale = $request->getLocale();
+        $portal = $this->getPortalByLocal($locale);
+        $imprintPage = $this->pageService->getPagesByPortId($portal->getId());
+        dump($imprintPage);
+        if ($portal == null) {
+            // not found
+            throw new NotFoundResourceException('Not found ' . $locale);
+        }
+
         return $this->render("imprint/index.html.twig", [
             'pageTitel' => $translator->trans('imprintPageTitel'),
-            'imprintEntity' => $cache->get( 'CSV_Imprint_' . md5($request->getLocale()), function () use ($imprintRepo, $request) {
-                return $imprintRepo->find($request->getLocale());
-            })
+            'portalEntity' => $portal,
+            'pageEntity' => $imprintPage,
+            'portals' => $this->portalService->getAllPortal(),
+            'currentLocale' => $request->getLocale()
         ]);
     }
 
@@ -27,9 +51,22 @@ class ImprintController extends AbstractController
      *
      * @return JsonResponse
      */
-    public function jsonFormat(Request $request, ImprintInterface $imprintRepo): JsonResponse
+    public function jsonFormat(Request $request ): JsonResponse
     {
-        return $this->json($imprintRepo->find($request->getLocale()));
+        $statusCode = 200;
+        $locale = $request->getLocale();
+        $portal = $this->getPortalByLocal($locale);
+        if ($portal == null) {
+            // not found
+            $portal = [];
+            $statusCode = 404;
+        }
+        return $this->json($portal)->setStatusCode($statusCode);
+    }
+
+    private function getPortalByLocal(string $locale): ?Portal
+    {
+        return $this->portalService->findPortalByLocale($locale);
     }
 
 

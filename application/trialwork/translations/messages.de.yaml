@@ -1,3 +1,9 @@
 welcome: Willkommen zum Portal!
 imprintPageTitel: Impressum
 imprintFooterLabel: Impressum
+homeFooterLabel: Home
+buttonLabelEdit: bearbeiten
+buttonLabelDelete: löschen
+forms:
+  portal:
+    buttonCreate: Einfügen

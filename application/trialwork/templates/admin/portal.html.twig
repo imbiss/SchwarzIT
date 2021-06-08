@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    {{ render( controller('App\\Controller\\Base\\BaseController::pageHeader', {}))}}
+
+    <div class="col-6">
+        <h1>Portal</h1>
+        {{ form(form) }}
+    </div>
+
+    {% if portals is not empty %}
+    <h2></h2>
+    <div class="col-12">
+        <table class="table table-striped">
+            <thead>
+                <tr >
+                    <th scope="col">local</th>
+                    <th scope="col">imprint</th>
+                    <th scope="col"></th>
+                 </tr>
+            </thead>
+            <tbody>
+            {% for p in portals %}
+                <tr>
+                    <th scope="row">{{ p.locale }}</th>
+                    <td>{{ p.imprint }}</td>
+                    <td>
+                        <a href="{{ path('admin_portal_del', { locale: p.locale }) }}" class="btn btn-primary">
+                            Delete
+                        </a>
+
+                        <a href="{{ path('admin_portal_edit', { locale: p.locale }) }}" class="btn btn-primary">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    {{ render( controller('App\\Controller\\Base\\BaseController::pageFooter', {}))}}
+
+{% endblock  %}
