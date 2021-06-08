@@ -113,9 +113,9 @@ class Portal
         return $this;
     }
 
-
+    // Need to build form drop down select options
     public function __toString()
     {
-        return $this->locale;
+        return sprintf("[%s] %s", $this->locale, $this->imprint);
     }
 }

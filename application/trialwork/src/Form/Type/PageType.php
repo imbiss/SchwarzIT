@@ -33,7 +33,11 @@ class PageType extends AbstractType
     {
         $builder
             ->add('portal', EntityType::class, [
-                'class' => Portal::class
+                'class' => Portal::class,
+                'choice_label' => function (Portal $portal) {
+                    return sprintf("[%s] %s", $portal->getLocale(), $portal->getImprint());
+                },
+                'placeholder' => 'Choose a local from list'
             ])
             ->add('content',TextareaType::class, [])
             ->add('save', SubmitType::class, [
