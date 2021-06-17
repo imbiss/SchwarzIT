@@ -37,11 +37,13 @@ hongyi_mysql5.7 include:
 
     * MySQL 5.7
  
-MySQL root password: password
+MySQL 
 
-MySQL User: user, 
+    * root password: password
 
-Password: user, 
+    * MySQL User: user, 
+
+    * Password: user, 
 
 DB Name: user-db
 
@@ -53,6 +55,11 @@ $ docker exec -it hongyi_apache-php7.4
 # php bin/console doctrine:migrations:migrate
 ```
 
+```run composer
+# composer install
+# yarn install 
+# yarn watch
+```
 
 
 Task 1

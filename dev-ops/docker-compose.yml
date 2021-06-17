@@ -34,6 +34,8 @@ services:
       - ../mysql5.7/db-data:/var/lib/mysql:delegated
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
+    ports:
+      - "127.0.0.1:3306:3306"
 networks:
   hongyi_prob:
     name: hc_prob_network
