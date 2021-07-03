@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  php:
+    container_name: sit-trial-php7.4
+    build: ./containers/php
+    image: base-alpine-php:7.4
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ../application/trialwork:/var/www:cached
+    links:
+      - "mysql"
+
+  nginx:
+    container_name: sit-trial-nginx
+    build: ./containers/nginx
+    image: base-nginx:latest
+    volumes:
+      - ../application/trialwork:/var/www:cached
+      - ../logs/nginx:/var/log/nginx:cached
+    ports:
+      - "80:80"
+
+  mysql:
+    container_name: sit-trial-mysql
+    restart: "no"
+    build:
+      context: ./containers/mysql
+      dockerfile: Dockerfile
+    volumes:
+      - ../mysql5.7/db-data:/var/lib/mysql:delegated
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    ports:
+      - "3306:3306"
